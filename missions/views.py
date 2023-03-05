@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Photos
-from .forms import MessageForm
+from .models import Photos, Testimony, Message
+from .forms import MessageForm, TestimonyForm
 
 
 # Create your views here.
@@ -18,3 +18,29 @@ def index(request):
         'form': form
     }
     return render(request, 'missions/home.html', context)
+
+
+def testimony(request):
+    form = TestimonyForm()
+    if request.method == 'POST':
+        form = TestimonyForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('testimony')
+    context = {
+        'form': form
+    }
+    return render(request, 'missions/testimony.html', context)
+
+def testimony(request):
+    form = TestimonyForm()
+    if request.method == 'POST':
+        form = TestimonyForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('testimony')
+    context = {
+        'form': form
+    }
+    return render(request, 'missions/testimony.html', context)
+
