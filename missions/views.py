@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
-from .models import Photos, Testimony, Message
+from .models import *
 from .forms import MessageForm, TestimonyForm
+from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage
 
 
 # Create your views here.
+
 
 def index(request):
     images = Photos.objects.all()
@@ -14,7 +17,7 @@ def index(request):
             form.save()
             return redirect('index')
     context = {
-        'images': images,
+        'images':images,
         'form': form
     }
     return render(request, 'missions/home.html', context)
@@ -32,15 +35,63 @@ def testimony(request):
     }
     return render(request, 'missions/testimony.html', context)
 
-def testimony(request):
-    form = TestimonyForm()
-    if request.method == 'POST':
-        form = TestimonyForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('testimony')
+
+def donate(request):
+    return render(request, 'missions/donate.html')
+
+
+def about(request):
+    return render(request, 'missions/about.html')
+
+
+def sermon(request):
+    if 'q' in request.GET:
+        q = request.GET['q']
+        items = Sermon.objects.filter(Q(topic__icontains=q)
+                                      | Q(speaker__icontains=q)
+                                      | Q(location__icontains=q)
+                                      )
+    else:
+        items = Sermon.objects.all()
+        p = Paginator(items, 15)
+        page_num = request.GET.get('page', 1)
+
+
+        try:
+            items = p.page(page_num)
+        except EmptyPage:
+            items = p.items(1)
     context = {
-        'form': form
+        'items': items,
     }
-    return render(request, 'missions/testimony.html', context)
+    return render(request, 'missions/sermons.html', context)
+
+
+def discipleship(request):
+    return render(request, 'missions/discipleship.html')
+
+
+def media(request):
+    items = Event.objects.all()
+    context = {
+        'items': items
+    }
+
+    return render(request, 'missions/media.html', context)
+
+
+def contact(request):
+    return render(request, 'missions/contact.html')
+
+
+def download(request, id):
+    items = Sermon.objects.get(id=id)
+    context = {
+        'topic': items.topic,
+        'sermon': items.sermon,
+        'location': items.location,
+        'speaker': items.speaker,
+    }
+    return render(request, 'missions/download.html', context)
+
 
