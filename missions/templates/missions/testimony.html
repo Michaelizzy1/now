@@ -1,0 +1,43 @@
+{% extends 'missions/base.html' %}
+
+{% block content %}
+
+<div class="text-center">
+    <h2>TESTIMONY SESSION</h2>
+<h6>Share your testimony with Believers all over the World</h6>
+</div>
+
+<div>
+<form method="POST" action="">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">NAME: </label>
+          {{form.name}}
+<!--      <input type="text" class="form-control">-->
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">ADDRESS: </label>
+        {{form.address}}
+<!--      <input type="text" class="form-control">-->
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">TEL: </label>
+        {{form.tel}}
+<!--      <input type="text" class="form-control" id="exampleFormControlInput1">-->
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">TESTIMONY: </label>
+        {{form.testimony}}
+<!--      <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>-->
+        <P></P>
+    <div class="d-grid gap-2">
+        <button class="btn btn-primary" type="submit">Send</button>
+    </div>
+    </div>
+</form>
+</div>
+
+{% endblock %}
+
+</body>
+</html>

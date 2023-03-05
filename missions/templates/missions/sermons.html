@@ -1,0 +1,53 @@
+{% extends 'missions/base.html' %}
+
+{% block content %}
+
+<h2 class="text-center">DOWNLOAD AND LISTENS TO OUR SERMONS HERE</h2>
+<hr>
+<p></p>
+
+<div class="text-center">
+<form method="GET" action="{% url 'sermon' %}">
+   <input type="search" name="q" placeholder="Enter Search">
+</form>
+</div>
+<p></p>
+<a href="{% url 'sermon'  %}">All Sermons</a>
+
+<p></p>
+<div>
+<!--    {% for page in page1 %}-->
+<!--        {{page.topic}}-->
+<!--    {% endfor %}-->
+
+    {% for item in items %}
+    {{forloop.counter}}. <a href="{% url 'download' item.id %}">{{item.topic}}</a><br><p></p>
+    {% endfor %}
+</div>
+
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+
+    {% if items.has_previous %}
+      <p></p>
+    <a class="page-link" href="{% url 'sermon' %}?page={{items.previous_page_number}}">Previous</a>
+    {% endif %}
+
+          {% if items.has_next %}
+      <li class="page-item">
+          <a href="{% url 'sermon' %}?page={{items.next_page_number}}" class="page-link">Next</a>
+      <li class="page-item disabled"></li>
+
+
+
+
+
+      {% endif %}
+    </li>
+
+  </ul>
+</nav>
+
+
+{% endblock %}
