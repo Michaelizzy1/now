@@ -45,3 +45,13 @@ class Event(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Banner(models.Model):
+    media = models.ImageField()
+    download = models.ImageField()
+    sermon = models.ImageField()
+    testimony = models.ImageField()
+    donate = models.ImageField()
+    about = models.ImageField()
+    contact = models.ImageField()

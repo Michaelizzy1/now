@@ -22,11 +22,12 @@
   <h3>Welcome</h3>
 
   <hr> <br>
+  {% for banners in banner %}
   <div class="row">
     <div class="col-md-3 mb-3">
       <a href="{% url 'media' %}">
         <div class="card">
-          <img class="card-img-top" src="{% static 'images/media.png' %}" alt="Notes image">
+          <img class="card-img-top" src="{{banners.media.url}}" alt="Notes image">
           <div class="card-body">
             <h5 class="card-title ">
               Media
@@ -36,10 +37,13 @@
         </div>
       </a>
     </div>
+    {% endfor %}
+
+    {% for banners in banner %}
     <div class="col-md-3 mb-3">
       <a href="{% url 'sermon' %}">
         <div class="card">
-          <img class="card-img-top" src="{% static 'images/sermon.png' %}" alt="Notes image">
+          <img class="card-img-top" src="{{banners.media.url}" alt="Notes image">
           <div class="card-body">
             <h5 class="card-title ">
               Sermons
@@ -52,7 +56,7 @@
     <div class="col-md-3 mb-3">
       <a href="{% url 'testimony' %}">
         <div class="card">
-          <img class="card-img-top" src="{% static 'images/testimony.png' %}" alt="Notes image">
+          <img class="card-img-top" src="{{banners.testimony.url}" alt="Notes image">
           <div class="card-body">
             <h5 class="card-title ">
               Testimony
@@ -105,6 +109,7 @@
       </a>
     </div>
   </div>
+  {% endfor %}
 
 
 </section>

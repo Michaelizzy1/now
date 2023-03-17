@@ -10,6 +10,7 @@ from django.core.paginator import Paginator, EmptyPage
 
 def index(request):
     images = Photos.objects.all()
+    banner = Banner.objects.all()
     form = MessageForm()
     if request.method == 'POST':
         form = MessageForm(request.POST)
@@ -18,7 +19,8 @@ def index(request):
             return redirect('index')
     context = {
         'images':images,
-        'form': form
+        'form': form,
+        'banner':banner,
     }
     return render(request, 'missions/home.html', context)
 
